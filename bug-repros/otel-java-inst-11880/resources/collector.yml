@@ -1,0 +1,32 @@
+---
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: "0.0.0.0:4318"
+
+processors:
+  batch:
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:9090"
+    # Note: this is required to show the bug more clearly
+    # Since we set our scrape time to 15s / emission interval to 15s, with
+    # a 15-second expiration we should see metrics "fall off" immediately
+    # instead of them being held for 5 minutes which is the default
+    metric_expiration: "15s"
+  debug:
+
+extensions:
+  health_check:
+  pprof:
+  zpages:
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [prometheus]

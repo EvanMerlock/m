@@ -1,0 +1,12 @@
+up:
+    docker-compose up -d
+    sleep 15
+
+setup-topic: up
+    docker run --network=host --rm -it apache/kafka:3.7.1 /opt/kafka/bin/kafka-topics.sh --create --topic example-topic --bootstrap-server 127.0.0.1:9092
+
+down:
+    docker-compose down
+
+consume:
+    docker run --network=host --rm -it apache/kafka:3.7.1 /opt/kafka/bin/kafka-console-consumer.sh --topic example-topic --bootstrap-server 127.0.0.1:9092
