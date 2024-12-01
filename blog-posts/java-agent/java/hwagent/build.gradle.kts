@@ -26,8 +26,8 @@ tasks {
         manifest {
             attributes(jar.get().manifest.attributes)
             attributes(
-                "Agent-Class" to "dev.merlock.hwagent.HWAgent",
-                "Premain-Class" to "dev.merlock.hwagent.HWAgent",
+                "Agent-Class" to "dev.merlock.hwagent.mod2.HWModAgent",
+                "Premain-Class" to "dev.merlock.hwagent.mod2.HWModAgent",
             )
         }
     }
